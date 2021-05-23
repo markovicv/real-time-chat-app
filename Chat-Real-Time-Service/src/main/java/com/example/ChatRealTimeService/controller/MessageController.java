@@ -4,6 +4,8 @@ import com.example.ChatRealTimeService.model.dto.MessageDto;
 import com.example.ChatRealTimeService.services.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -13,9 +15,9 @@ public class MessageController {
 
     private final MessageService messageService;
 
-    @PostMapping()
-    public ResponseEntity<?> sendMessage(@RequestBody MessageDto messageDto){
-        return messageService.sendMessage(messageDto);
+    @MessageMapping("/chat")
+    public void sendMessage(@Payload MessageDto messageDto){
+         messageService.sendMessage(messageDto);
     }
 
 

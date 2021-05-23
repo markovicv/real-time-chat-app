@@ -13,6 +13,7 @@ import com.example.ChatRealTimeService.services.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -28,20 +29,23 @@ public class MessageServiceImpl implements MessageService {
     private final MessageRepository messageRepository;
     private final ChatRepository chatRepository;
     private final UserRepository userRepository;
+    private final SimpMessagingTemplate simpMessagingTemplate;
 
     @Override
-    public ResponseEntity<?> sendMessage(MessageDto messageDto) {
+    public void sendMessage(MessageDto messageDto) {
         boolean chatExists = chatRepository.existsById(messageDto.getChatId());
         if (!chatExists) {
             Chat savedChat = createChat(messageDto);
-            return createMessage(savedChat,messageDto);
+            Message message =  createMessage(savedChat,messageDto);
+            simpMessagingTemplate.convertAndSendToUser(String.valueOf(message.getReceiverId()),"/queue/messages",message);
         }
 
         else{
             Chat chatRoom = chatRepository.findById(messageDto.getChatId()).orElseThrow(()->new RuntimeException("Error fetching chatRoom"));
-            if(roomBelongsToUsers(chatRoom,messageDto.getSenderId(),messageDto.getReceiverId()))
-                return createMessage(chatRoom,messageDto);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error in chat users and chat room");
+            if(roomBelongsToUsers(chatRoom,messageDto.getSenderId(),messageDto.getReceiverId())){
+                Message message =  createMessage(chatRoom,messageDto);
+                simpMessagingTemplate.convertAndSendToUser(String.valueOf(message.getReceiverId()),"/queue/messages",message);
+            }
         }
 
 
@@ -87,7 +91,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Transactional
-    public ResponseEntity<?> createMessage(Chat chatRoom,MessageDto messageDto) {
+    public Message createMessage(Chat chatRoom,MessageDto messageDto) {
         Message chatMessage = Message.builder()
                 .chat(chatRoom)
                 .messageStatus(MessageStatus.SAVED)
@@ -95,6 +99,6 @@ public class MessageServiceImpl implements MessageService {
                 .receiverId(messageDto.getReceiverId())
                 .data(messageDto.getData())
                 .build();
-        return ResponseEntity.ok(messageRepository.save(chatMessage));
+        return messageRepository.save(chatMessage);
     }
 }
