@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/message")
+@CrossOrigin(origins = {"*"})
 public class MessageController {
 
     private final MessageService messageService;
 
     @MessageMapping("/chat")
     public void sendMessage(@Payload MessageDto messageDto){
+        System.out.println("okini ga");
          messageService.sendMessage(messageDto);
     }
 
