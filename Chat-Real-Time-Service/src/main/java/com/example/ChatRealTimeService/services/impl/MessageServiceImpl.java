@@ -33,23 +33,19 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public void sendMessage(MessageDto messageDto) {
-        System.out.println("sio ti gej");
+
         boolean chatExists = chatRepository.existsById(messageDto.getChatId());
+        long chatId = messageDto.getChatId();
         if (!chatExists) {
             Chat savedChat = createChat(messageDto);
-            Message message =  createMessage(savedChat,messageDto);
-            simpMessagingTemplate.convertAndSendToUser(String.valueOf(message.getReceiverId()),"/queue/messages",message);
+            chatId = savedChat.getId();
         }
+        Chat chatRoom = chatRepository.findById(chatId).orElseThrow(()->new RuntimeException("Error fetching chatRoom"));
+        if(!roomBelongsToUsers(chatRoom,messageDto.getSenderId(),messageDto.getReceiverId()))
+            throw new RuntimeException("users dont belong to chat");
 
-        else{
-            Chat chatRoom = chatRepository.findById(messageDto.getChatId()).orElseThrow(()->new RuntimeException("Error fetching chatRoom"));
-//            if(roomBelongsToUsers(chatRoom,messageDto.getSenderId(),messageDto.getReceiverId())){
-                Message message =  createMessage(chatRoom,messageDto);
-                System.out.println(messageDto.getReceiverId());
-                simpMessagingTemplate.convertAndSendToUser(String.valueOf(message.getReceiverId()),"/queue/messages",message);
-//            }
-        }
-
+        Message message =  createMessage(chatRoom,messageDto);
+        simpMessagingTemplate.convertAndSendToUser(String.valueOf(message.getReceiverId()),"/queue/messages",message);
 
 
     }

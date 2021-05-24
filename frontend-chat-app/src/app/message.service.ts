@@ -27,7 +27,7 @@ export class MessageService {
     console.log("uspesno konektovan!");
     console.log(localStorage.getItem("currentId"));
     this.stompClient.subscribe("/user/"+String(localStorage.getItem("currentId"))+"/queue/messages",incomingMsg=>{
-      console.log(incomingMsg.body);
+      
     })
 
   }
@@ -39,11 +39,12 @@ export class MessageService {
   sendMessage(){
     let msg = new ChatMessage();
     let currentId = Number(localStorage.getItem("currentId"));
-    msg.chatId = 1;
+    msg.chatId = -1;
     msg.data = "RADDDDIII";
     msg.senderId = currentId;
     msg.receiverId =3;
-    this.stompClient.send("/app/message/chat",{},JSON.stringify(msg));
+    
+    this.stompClient.send("/app/chat",{},JSON.stringify(msg));
   }
 
 
