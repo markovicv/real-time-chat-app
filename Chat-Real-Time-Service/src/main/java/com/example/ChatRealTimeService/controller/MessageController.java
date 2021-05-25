@@ -35,4 +35,9 @@ public class MessageController {
     public ResponseEntity<?> getMessagesForChat(@PathVariable("chatId") Long id){
         return messageService.getMessagesForChat(id);
     }
+
+    @GetMapping("/friends/{id}")
+    public ResponseEntity<?> getAllFriends(@PathVariable("id") Long id){
+        return messageService.getAllFriends(id);
+    }
 }

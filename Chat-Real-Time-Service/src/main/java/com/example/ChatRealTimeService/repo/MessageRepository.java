@@ -11,4 +11,6 @@ public interface MessageRepository extends JpaRepository<Message,Long> {
     List<Message> findMessageByChatId(Long chatId);
 
     List<Message> findMessageByChatIdAndMessageStatus(Long chatId, MessageStatus messageStatus);
+
+    long countBySenderIdAndReceiverIdAndMessageStatus(Long senderId,Long receiverId,MessageStatus messageStatus);
 }
