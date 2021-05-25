@@ -1,5 +1,34 @@
-<p>login works!</p>
+<!-- <p>login works!</p>
 <input [(ngModel)]="username"  name="a" type="email" placeholder="Email" />
 <input [(ngModel)]="password" name="b" stype="password" placeholder="Password" />
-<button (click)="login()">Sign In</button>
+<button (click)="login()">Sign In</button> -->
 
+<body>
+    <div class="hero">
+        <div class="form-box">
+    
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-button" onclick="login()"> Log in</button>
+                <button type="button" class="toggle-button" onclick="register()"> Register</button>
+    
+    
+            </div>
+            <form id="login" class="input-group">
+                <input [(ngModel)]="username" name="a" type="text" class="input-field" placeholder="Username" required>
+                <input [(ngModel)]="password" name="b" type="text" class="input-field" placeholder="Password" required>
+                <button (click)="login()" class="submit-btn">Log in</button>
+    
+            </form>
+    
+            <form id="register" class="input-group">
+                <input type="text" class="input-field" placeholder="Username" required>
+                <input type="text" class="input-field" placeholder="Email" required>
+                <input type="text" class="input-field" placeholder="Password" required>
+                <button type="submit" class="submit-btn">Register</button>
+    
+            </form>
+        </div>
+    </div>
+
+</body>

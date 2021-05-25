@@ -1,0 +1,84 @@
+
+
+.hero{
+    height: 100%;
+    width:100%;
+    background-position: center;
+    position: absolute;
+}
+.form-box{
+    width: 380px;
+    height: 480px;
+    background-color: #DEF2F1;
+    position: relative;
+    margin: 6% auto  ;
+    padding: 5px;
+    border-radius: 10px;
+    overflow: hidden;
+    opacity: 0.88;
+}
+
+.button-box{
+    width: 250px;
+    /* height: 30px; */
+    margin: 35px auto;
+    position: relative;
+    box-shadow: 0 0 20px 9px #ff61241f;
+    border-radius: 30px;
+}
+.toggle-button{
+    padding: 10px 30px;
+    cursor: pointer;
+    border:0;
+    outline: none;
+    position: relative;
+    background: transparent;
+}
+#btn{
+    background: #F79E02;
+    position: absolute;
+    width: 120px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 30px;
+    transition: .5s;
+}
+.input-group{
+    top: 150px;
+    width: 300px;
+    position: absolute;
+    transition: .5s;
+}
+.input-field{
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid #999;
+    outline:none;
+    background: transparent;
+    background-position: center;
+
+
+}
+.submit-btn{
+    width: 85%;
+    padding: 10px 30px;
+    cursor: pointer;
+    display: block;
+    margin: 10% auto;
+    background-color: #F79E02;
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+}
+
+ #login{
+     left: 45px;
+ }
+ #register{
+     left:450px
+ }
