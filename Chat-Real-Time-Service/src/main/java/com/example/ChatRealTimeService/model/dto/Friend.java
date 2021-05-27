@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Friend {
 
+    private String username;
     private Long friendId;
     private long numberOfUnreadMessages;
 

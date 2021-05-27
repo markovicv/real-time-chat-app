@@ -115,6 +115,7 @@ public class MessageServiceImpl implements MessageService {
                 continue;
             Friend friend = new Friend();
             friend.setFriendId(user.getId());
+            friend.setUsername(user.getUsername());
             friend.setNumberOfUnreadMessages(
                     messageRepository.countBySenderIdAndReceiverIdAndMessageStatus(user.getId(),myId,MessageStatus.SAVED)
             );
