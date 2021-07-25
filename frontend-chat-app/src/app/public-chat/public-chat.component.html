@@ -1,0 +1,58 @@
+<div class="tab">
+    <button (click)="navigateToPrivateChat()"> Private chat</button>
+    <button (click)="navigateToPublicChat()"> Public chat </button>
+</div>
+
+<div class="container">          
+  
+    <main>
+
+        <header>
+            <!-- <img src="assets/bole.jpg" style="width: 55px; height: 55px;" alt=""> -->
+            <div>
+                <h2>public chat</h2>
+            </div>
+        </header>
+        <ul id="chat" #CHAT>
+            <div >
+                <div *ngFor = "let msg of this.chatRoomService.publicMessageList" > 
+                <li *ngIf = "msg.senderId !=getMyId()" class="you">
+                    <div class="entete">
+                        <span class="status green"></span>
+                        <h3>11:00</h3>
+                    </div>
+                    <div class="triangle"></div>
+                    <div class="message">
+                        <div class="username">
+                            vukasin
+                        </div>
+                        a jeli jes matere ti
+                    </div>
+                </li>
+                <li *ngIf = "msg.senderId ==getMyId()"  class="me" >
+                    <div class="entete">
+                        <h3>12::00</h3>
+                        <span class="status blue"></span>
+                    </div>
+                    <div class="triangle"></div>
+                    <div class="message">
+                        <div class="username">
+                            @{{msg.senderName}}
+                        </div>
+                        {{msg.messageContent}}
+                    </div>
+                </li>
+                </div>
+            </div>
+               
+            </ul>
+
+            <footer>
+                <textarea [(ngModel)] = "messageToSend" ></textarea>
+                <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_picture.png" alt="">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_file.png" alt=""> -->
+                <button (click)="send()">Send</button>
+            </footer>
+    </main>
+
+</div>
