@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ChatMessage } from './model/chat-message';
+import { Friend } from './model/friends';
 
 
 declare var SockJS:any;
@@ -10,8 +12,11 @@ declare var Stomp:any;
 export class MessageService {
 
   public stompClient;
+  public friendsList:Array<Friend> = [];
 
-  constructor() { }
+
+
+  constructor(private httpClient:HttpClient) { }
 
 
   initWebSocket(){
@@ -45,6 +50,14 @@ export class MessageService {
     msg.receiverId =3;
     
     this.stompClient.send("/app/chat",{},JSON.stringify(msg));
+  }
+
+  getAllFriendsList(){
+    let currentUsernameId = Number(localStorage.getItem("currentId"));
+
+    this.httpClient.get<any>("http://localhost:9092/friends/"+currentUsernameId).subscribe(data=>{
+      this.friendsList = data;
+    })
   }
 
 

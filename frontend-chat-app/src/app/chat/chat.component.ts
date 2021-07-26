@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MessageService } from '../message.service';
 
 @Component({
@@ -8,14 +9,25 @@ import { MessageService } from '../message.service';
 })
 export class ChatComponent implements OnInit {
 
-  constructor(public messageService:MessageService) { }
+  constructor(public messageService:MessageService,private router:Router) { }
 
   ngOnInit(): void {
     // this.messageService.initWebSocket();
+    this.messageService.getAllFriendsList();
   }
 
   send(){
     this.messageService.sendMessage();
+  }
+
+
+
+  navigateToPrivateChat(){
+    this.router.navigateByUrl("/chatApp");
+
+  }
+  navigateToPublicChat(){
+    this.router.navigateByUrl("/publicChat");
   }
 
 }
