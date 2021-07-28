@@ -8,11 +8,11 @@
 <div class="container">          
     <aside>
         <ul >
-            <li *ngFor="let friend of this.messageService.friendsList">
+            <li (click)="openChat(friend)" *ngFor="let friend of this.messageService.friendsList">
                 <div>
                     <h2>{{friend.username}}</h2>
-                    <span class="notification">
-                        2 new messages
+                    <span class="notification" *ngId="friend.numberOfUnreadMessages>0">
+                        {{friend.numberOfUnreadMessages}} new messages
                     </span>
                 </div>
             </li>
@@ -23,30 +23,31 @@
         <header>
             <!-- <img src="assets/bole.jpg" style="width: 55px; height: 55px;" alt=""> -->
             <div>
-                <h2>Chat with Bolee</h2>
+                <h2 *ngIf="this.messageService.currentFriend!=null">Chat with {{this.messageService.currentFriend.username}}</h2>
+                <h2 *ngIf="this.messageService.currentFriend==null"> Welcome to chat App click on the person to start chating</h2>
             </div>
         </header>
         <ul id="chat" #CHAT>
-            <div >
-                <div > 
-                <li class="you">
+            <div *ngIf ="firstClicked() == true" >
+                <div *ngFor = "let msg of this.messageService.currentChatMessages"> 
+                <li *ngIf = "msg.senderId != getMyId()" class="you">
                     <div class="entete">
                         <span class="status green"></span>
                         <h3>11:00</h3>
                     </div>
                     <div class="triangle"></div>
                     <div class="message">
-                        a jeli jes matere ti
+                        {{msg.data}}
                     </div>
                 </li>
-                <li   class="me" >
+                <li *ngIf = "msg.senderId==getMyId()"  class="me" >
                     <div class="entete">
                         <h3>12::00</h3>
                         <span class="status blue"></span>
                     </div>
                     <div class="triangle"></div>
                     <div class="message">
-                        jes tebe
+                        {{msg.data}}
                     </div>
                 </li>
                 </div>
@@ -55,7 +56,7 @@
             </ul>
 
             <footer>
-                <textarea ></textarea>
+                <textarea [(ngModel)] = "messageToSend" ></textarea>
                 <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_picture.png" alt="">
                 <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_file.png" alt=""> -->
                 <button (click)="send()">Send</button>
