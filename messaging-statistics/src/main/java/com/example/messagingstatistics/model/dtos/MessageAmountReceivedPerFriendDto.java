@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class MessageAmountReceivedPerFriendDto {
 
 
-    private String username;
+    private String friendUsername;
     private Long numberOfMessagesReceivedToFriend;
 
 }

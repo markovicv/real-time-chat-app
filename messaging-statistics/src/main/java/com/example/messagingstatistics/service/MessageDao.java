@@ -6,4 +6,6 @@ public interface MessageDao {
 
     ResponseEntity<?> getMessageAmountSendPerFriend();
     ResponseEntity<?> getMessageAmountReceivedPerFriend();
+    ResponseEntity<?> getNumberOfMessagesSent();
+    ResponseEntity<?> getNumberOfMessagesReceived();
 }
