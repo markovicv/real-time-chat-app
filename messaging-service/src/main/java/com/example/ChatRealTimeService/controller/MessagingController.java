@@ -56,10 +56,6 @@ public class MessagingController {
         return messageService.getAllMessagesBetweenTwoParties(senderId,receiverId);
     }
 
-    @GetMapping("/test")
-    public String test(){
-        return "AAAAAAAAAAAAAAAAAAAAAAAAAA";
-    }
 
 
 }

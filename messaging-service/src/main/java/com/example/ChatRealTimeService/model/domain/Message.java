@@ -27,6 +27,8 @@ public class Message {
     @Enumerated(EnumType.STRING)
     private MessageStatus messageStatus;
 
+    private Long messageCreated;
+
     @ManyToOne
     @JoinColumn(name = "chat_id",nullable = false)
     @JsonIgnore

@@ -30,6 +30,7 @@ public class MessageMapper {
                 .senderId(message.getSenderId())
                 .receiverId(message.getReceiverId())
                 .chatId(message.getChat().getId())
+                .createdTimeInMillis(message.getMessageCreated())
                 .build();
     }
 }

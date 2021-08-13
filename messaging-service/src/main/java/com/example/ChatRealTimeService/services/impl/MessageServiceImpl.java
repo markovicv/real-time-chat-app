@@ -170,6 +170,7 @@ public class MessageServiceImpl implements MessageService {
                 .senderId(messageDto.getSenderId())
                 .receiverId(messageDto.getReceiverId())
                 .data(messageDto.getData())
+                .messageCreated(System.currentTimeMillis())
                 .build();
         return messageRepository.save(chatMessage);
     }
