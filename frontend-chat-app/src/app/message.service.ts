@@ -62,7 +62,7 @@ export class MessageService {
     msg.receiverId =this.currentFriend.friendId;
 
 
-    this.httpClient.post<ChatMessage>("http://localhost:9092/chat",msg).subscribe(data=>{
+    this.httpClient.post<ChatMessage>("http://localhost:9092/message/chat",msg).subscribe(data=>{
 
       this.currentChatMessages.push(data);
       this.stompClient.send("/app/chat",{},JSON.stringify(data));
@@ -75,7 +75,7 @@ export class MessageService {
   getAllFriendsList(){
     let currentUsernameId = Number(localStorage.getItem("currentId"));
 
-    this.httpClient.get<any>("http://localhost:9092/friends/"+currentUsernameId).subscribe(data=>{
+    this.httpClient.get<any>("http://localhost:9092/message/friends/"+currentUsernameId).subscribe(data=>{
 
       
 
@@ -101,7 +101,7 @@ export class MessageService {
 
 
   getAllMessagesBetweenUsers(senderId:number,receiverId:number):Observable<any>{
-    return this.httpClient.get<any>("http://localhost:9092/messages/"+receiverId+"/"+senderId);
+    return this.httpClient.get<any>("http://localhost:9092/message/messages/"+receiverId+"/"+senderId);
   }
 
 

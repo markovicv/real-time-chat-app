@@ -35,8 +35,8 @@ export class ChatComponent implements OnInit {
     this.router.navigateByUrl("/chatApp");
 
   }
-  navigateToPublicChat(){
-    this.router.navigateByUrl("/publicChat");
+  navigateToAnalytics(){
+    this.router.navigateByUrl("/analytics");
   }
 
   firstClicked(){
