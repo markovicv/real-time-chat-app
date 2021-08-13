@@ -3,24 +3,26 @@ package com.example.authservice.service.impl;
 import com.example.authservice.service.TokenService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
+import java.security.Key;
 import java.util.Date;
 
 @Service
 public class JwtService implements TokenService {
 
     @Value("${jwt.secret}")
-    private String secretKey;
+    private String secret;
+
+    private Key key;
 
     @PostConstruct
     void init(){
-        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
+
+        this.key = Keys.hmacShaKeyFor(secret.getBytes());
     }
 
     @Override
@@ -34,7 +36,7 @@ public class JwtService implements TokenService {
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(validTo)
-                .signWith(SignatureAlgorithm.HS256,secretKey)
+                .signWith(key)
                 .compact();
     }
 }
