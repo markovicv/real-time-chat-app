@@ -9,8 +9,8 @@
     
             <div class="button-box">
                 <div id="btn"></div>
-                <button type="button" class="toggle-button" onclick="login()"> Log in</button>
-                <button type="button" class="toggle-button" onclick="register()"> Register</button>
+                <button type="button" class="toggle-button" (click)="moveToLogin()"> Log in</button>
+                <button type="button" class="toggle-button" (click)="moveToRegister()"> Register</button>
     
     
             </div>
@@ -22,10 +22,9 @@
             </form>
     
             <form id="register" class="input-group">
-                <input type="text" class="input-field" placeholder="Username" required>
-                <input type="text" class="input-field" placeholder="Email" required>
-                <input type="text" class="input-field" placeholder="Password" required>
-                <button type="submit" class="submit-btn">Register</button>
+                <input [(ngModel)]="usernameReg" name="c" type="text" class="input-field" placeholder="Username" required>
+                <input [(ngModel)]="passwordReg" name="d" type="text" class="input-field" placeholder="Password" required>
+                <button (click)="register()" class="submit-btn">Register</button>
     
             </form>
         </div>
