@@ -4,4 +4,5 @@ export class ChatMessage{
     data:String;
     senderId:number;
     receiverId:number;
+    createdTimeInMillis:number;
 }
