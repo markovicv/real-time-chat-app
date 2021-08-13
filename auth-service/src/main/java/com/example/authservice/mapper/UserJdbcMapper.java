@@ -12,7 +12,8 @@ public class UserJdbcMapper implements RowMapper<User> {
     public User mapRow(ResultSet resultSet, int i) throws SQLException {
         String username = resultSet.getString("username");
         String password = resultSet.getString("password");
+        Long id = resultSet.getLong("id");
 
-        return new User(username,password);
+        return new User(username,password,id);
     }
 }

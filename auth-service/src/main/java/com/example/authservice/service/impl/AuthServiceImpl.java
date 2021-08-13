@@ -19,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+
 import java.util.Collections;
 import java.util.Objects;
 
@@ -38,7 +39,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public LoginResponseDto login(LoginDto loginDto) {
         SecurityContextHolder.getContext().setAuthentication(validateCredentials(loginDto));
-        return new LoginResponseDto(loginDto.getUsername(), jwtTokenService.createToken(loginDto.getUsername()));
+        return new LoginResponseDto(loginDto.getUsername(), jwtTokenService.createToken(loginDto.getUsername()),getUserByUsername(loginDto.getUsername()).getId());
     }
 
     private Authentication validateCredentials(LoginDto loginDto) {
@@ -55,12 +56,17 @@ public class AuthServiceImpl implements AuthService {
             return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
 
         }
-        catch (EmptyResultDataAccessException emptyResultDataAccessException){
+        catch (Exception e){
 
-            throw new UserException("user with that username not found",HttpStatus.NOT_FOUND);
+            throw new UserException("user with that username not found",HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
 
+    private User getUserByUsername(String username){
+        String queryUserByUsername = "SELECT * FROM chatService.user_table WHERE username=?;";
+
+        return jdbcTemplate.queryForObject(queryUserByUsername, new UserJdbcMapper(),username);
 
     }
 
@@ -72,7 +78,7 @@ public class AuthServiceImpl implements AuthService {
         if(existsUser(registerDto.getUsername()))
             throw new UserException("user already exists",HttpStatus.FORBIDDEN);
 
-            User registerUser = new User(registerDto.getUsername(),bCryptPasswordEncoder.encode(registerDto.getPassword()));
+            User registerUser = new User(registerDto.getUsername(),bCryptPasswordEncoder.encode(registerDto.getPassword()),null);
             jdbcTemplate.update("INSERT INTO chatService.user_table (username,password) VALUES (?,?)",registerUser.getUsername(),registerUser.getPassword());
 
         return new RegisterResponseDto("user registered!");

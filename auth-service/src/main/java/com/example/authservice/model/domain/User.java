@@ -4,10 +4,12 @@ public class User {
 
     private  String username;
     private  String password;
+    private Long id;
 
-    public User(String username, String password) {
+    public User(String username, String password,Long id) {
         this.username = username;
         this.password = password;
+        this.id = id;
     }
 
     public User(String username){
@@ -28,5 +30,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
