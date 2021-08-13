@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface MessageDao {
 
-    List<MessageAmountSentPerFriendDto> getMessageAmountSendPerFriend();
-    List<MessageAmountReceivedPerFriendDto> getMessageAmountReceivedPerFriend();
-    int getNumberOfMessagesSent();
-    int getNumberOfMessagesReceived();
+    List<MessageAmountSentPerFriendDto> getMessageAmountSendPerFriend(Long senderId);
+    List<MessageAmountReceivedPerFriendDto> getMessageAmountReceivedPerFriend(Long receiverId);
+    int getNumberOfMessagesSent(Long senderId);
+    int getNumberOfMessagesReceived(Long receiverId);
 }

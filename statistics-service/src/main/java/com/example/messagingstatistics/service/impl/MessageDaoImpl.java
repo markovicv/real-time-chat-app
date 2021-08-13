@@ -20,32 +20,32 @@ public class MessageDaoImpl implements MessageDao {
 
 
     @Override
-    public List<MessageAmountSentPerFriendDto> getMessageAmountSendPerFriend() {
-        String getMessageAmountSendPerFriendQuery = "SELECT UC.username, COUNT(receiver_id) as sentMessages FROM chatService.message JOIN chatService.user_table UC ON message.receiver_id=UC.id WHERE sender_id=1 GROUP BY receiver_id;";
-        return jdbcTemplate.query(getMessageAmountSendPerFriendQuery, new MessageAmountSentPerFriendMapper());
+    public List<MessageAmountSentPerFriendDto> getMessageAmountSendPerFriend(Long senderId) {
+        String getMessageAmountSendPerFriendQuery = "SELECT UC.username, COUNT(receiver_id) as sentMessages FROM chatService.message JOIN chatService.user_table UC ON message.receiver_id=UC.id WHERE sender_id=? GROUP BY receiver_id;";
+        return jdbcTemplate.query(getMessageAmountSendPerFriendQuery, new MessageAmountSentPerFriendMapper(),senderId);
 
 
     }
 
     @Override
-    public List<MessageAmountReceivedPerFriendDto> getMessageAmountReceivedPerFriend() {
-        String getMessageAmountReceivedPerFriendQuery = "SELECT UC.username, COUNT(sender_id) as receivedMessages FROM chatService.message JOIN chatService.user_table UC ON message.sender_id=UC.id WHERE receiver_id =1 GROUP BY UC.username;";
-        return jdbcTemplate.query(getMessageAmountReceivedPerFriendQuery, new MessageAmountReceivedPerFriendMapper());
+    public List<MessageAmountReceivedPerFriendDto> getMessageAmountReceivedPerFriend(Long receiverId) {
+        String getMessageAmountReceivedPerFriendQuery = "SELECT UC.username, COUNT(sender_id) as receivedMessages FROM chatService.message JOIN chatService.user_table UC ON message.sender_id=UC.id WHERE receiver_id=? GROUP BY UC.username;";
+        return jdbcTemplate.query(getMessageAmountReceivedPerFriendQuery, new MessageAmountReceivedPerFriendMapper(),receiverId);
 
 
     }
 
     @Override
-    public int getNumberOfMessagesSent() {
-        String getNumberOfMessagesSentQuery = "SELECT count(sender_id) FROM chatService.message WHERE sender_id=1;";
-        return jdbcTemplate.queryForObject(getNumberOfMessagesSentQuery, Integer.class);
+    public int getNumberOfMessagesSent(Long senderId) {
+        String getNumberOfMessagesSentQuery = "SELECT count(sender_id) FROM chatService.message WHERE sender_id=?;";
+        return jdbcTemplate.queryForObject(getNumberOfMessagesSentQuery, Integer.class,senderId);
 
     }
 
     @Override
-    public int getNumberOfMessagesReceived() {
-        String getNumberOfMessagesReceivedQuery = "SELECT count(receiver_id) FROM chatService.message WHERE receiver_id=1;";
-        return jdbcTemplate.queryForObject(getNumberOfMessagesReceivedQuery, Integer.class);
+    public int getNumberOfMessagesReceived(Long receiverId) {
+        String getNumberOfMessagesReceivedQuery = "SELECT count(receiver_id) FROM chatService.message WHERE receiver_id=?;";
+        return jdbcTemplate.queryForObject(getNumberOfMessagesReceivedQuery, Integer.class,receiverId);
 
     }
 }
