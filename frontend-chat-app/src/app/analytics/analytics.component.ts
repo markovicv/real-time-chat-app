@@ -50,6 +50,7 @@ export class AnalyticsComponent implements OnInit {
           labels: this.friendsNameList,
           datasets: [{
               label: 'number of messages sent to friends',
+               
 
               data: this.numberOfMessagesSendPerFriend,
               backgroundColor: [
@@ -64,44 +65,32 @@ export class AnalyticsComponent implements OnInit {
           }]
       },
       options: {
+        plugins: {
+            legend: {
+                display: true,
+                labels: {
+                    color: 'white'
+                }
+            }
+        },
           scales: {
               y: {
-                  beginAtZero: true
+                  beginAtZero: true,
+                  grid: {
+                    color: 'rgba(255,255,255,0.6)',
+                    borderColor: 'white'  // <-- this line is answer to initial question
+                  },
+                  ticks:{
+                    color: "#CCC"
+                  }
               }
           }
+          
       }
   });
   }
 
-  generateMessagesSentPerFriendPercentageChart(){
-    this.messagesSentChart = new Chart("messagesSentToFriendsPercentChartId", {
-        type: 'bar',
-        data: {
-            labels: this.friendsNameList,
-            datasets: [{
-                label: 'number of messages sent to friends',
   
-                data: this.numberOfMessagesSendPerFriend,
-                backgroundColor: [
-                    'rgba(54, 162, 235, 0.2)',
-                   
-                ],
-                borderColor: [
-                    'rgba(54, 162, 235, 1)',
-                   
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-  }
 
   generateMessagesReceivedPerFriendChart(){
       this.messagesReceivedChart = new Chart("messagesReceivedFromFriendsId", {
@@ -123,9 +112,24 @@ export class AnalyticsComponent implements OnInit {
           }]
       },
       options: {
+        plugins: {
+            legend: {
+                display: true,
+                labels: {
+                    color: 'white'
+                }
+            }
+        },
           scales: {
               y: {
-                  beginAtZero: true
+                  beginAtZero: true,
+                  grid: {
+                    color: 'rgba(255,255,255,0.6)',
+                    borderColor: 'white'  // <-- this line is answer to initial question
+                  },
+                   ticks:{
+                    color: "#CCC"
+                  }
               }
           }
       }
