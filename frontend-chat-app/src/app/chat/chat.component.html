@@ -11,7 +11,7 @@
             <li (click)="openChat(friend)" *ngFor="let friend of this.messageService.friendsList">
                 <div>
                     <h2>{{friend.username}}</h2>
-                    <span class="notification" *ngId="friend.numberOfUnreadMessages>0">
+                    <span class="notification" *ngIf="friend.numberOfUnreadMessages>0">
                         {{friend.numberOfUnreadMessages}} new messages
                     </span>
                 </div>
