@@ -15,17 +15,17 @@ export class Interceptor implements HttpInterceptor{
 
 
        
-        // const jwt = localStorage.getItem("jwt");
+        const jwt = localStorage.getItem("jwt");
         
-        // if(req.url.includes("/auth/login")){
-        //     return next.handle(req);
-        // }
+        if(req.url.includes("/auth/login") || req.url.includes("/auth/register")){
+            return next.handle(req);
+        }
 
-        // req = req.clone({
-        //     setHeaders:{
-        //         Authorization:'Bearer '+jwt
-        //     }
-        // });
+        req = req.clone({
+            setHeaders:{
+                Authorization:'Bearer '+jwt
+            }
+        });
         return next.handle(req);
         
     }
