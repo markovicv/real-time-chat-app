@@ -4,7 +4,7 @@
 Microservice based chat application that eanbles one to one messaging between users using WebScokets.
 
 ### Project demo
-
+![ezgif com-gif-maker(1)](https://user-images.githubusercontent.com/54250129/130152700-0d87f851-e029-43cd-b3b3-e6c5978c585d.gif)
 
 ### Project architecture
 ![chat-app-archi](https://user-images.githubusercontent.com/54250129/130061054-7bc3fbc3-c5c4-4459-a730-274abd8462ff.png)
