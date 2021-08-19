@@ -180,13 +180,15 @@ main header h3{
 	display:inline-block;
 	font-size:13px;
 	font-weight:normal;
+	color: black;
 }
 #chat h3{
-	color:#bbb;
+	color:black;
 }
 #chat .entete{
 	margin-bottom:5px;
 }
+
 #chat .message{
 	padding:20px;
 	color: black;

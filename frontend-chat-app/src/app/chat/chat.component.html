@@ -33,7 +33,7 @@
                 <li *ngIf = "msg.senderId != getMyId()" class="you">
                     <div class="entete">
                         <span class="status green"></span>
-                        <h3>{{msg.createdTimeInMillis | date:'medium'}}</h3>
+                        <h3 color=black>{{msg.createdTimeInMillis | date:'medium'}}</h3>
                     </div>
                     <div class="triangle"></div>
                     <div class="message">
@@ -42,7 +42,7 @@
                 </li>
                 <li *ngIf = "msg.senderId==getMyId()"  class="me" >
                     <div class="entete">
-                        <h3>12::00</h3>
+                        <h3>{{msg.createdTimeInMillis | date:'medium'}}</h3>
                         <span class="status blue"></span>
                     </div>
                     <div class="triangle"></div>
