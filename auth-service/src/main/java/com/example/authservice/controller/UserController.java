@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = {"*"})
+@RequestMapping("/auth")
 public class UserController {
 
 
@@ -19,12 +20,12 @@ public class UserController {
         this.authService = authService;
     }
 
-    @PostMapping("/auth/register")
+    @PostMapping("/register")
     public RegisterResponseDto register(@RequestBody RegisterDto registerDto){
         return authService.register(registerDto);
     }
 
-    @PostMapping("/auth/login")
+    @PostMapping("/login")
     public LoginResponseDto login(@RequestBody LoginDto loginDto){
         return authService.login(loginDto);
     }
