@@ -15,12 +15,12 @@ export class LoginService {
   login(loginReq:LoginRequest):Observable<any>{
 
   
-    return this.http.post<any>("http://localhost:8080/auth/login",loginReq);
+    return this.http.post<any>("http://localhost:9094/auth/login",loginReq);
   }
 
   register(registerRequest:RegisterRequest):Observable<any>{
     
-    return this.http.post<any>("http://localhost:8080/auth/register",registerRequest);
+    return this.http.post<any>("http://localhost:9094/auth/register",registerRequest);
   }
 
 

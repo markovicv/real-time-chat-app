@@ -16,14 +16,14 @@ export class AnalyticsService {
    getNumberOfMessagesSentToFriend():Observable<any>{
     let currentUsernameId = Number(localStorage.getItem("currentId"));
 
-     return this.httpClient.get<any>("http://localhost:8080/analytics/send/amount/"+currentUsernameId);
+     return this.httpClient.get<any>("http://localhost:9093/analytics/send/amount/"+currentUsernameId);
    }
 
 
    getNumberOfMessagesReceivedFromFriends():Observable<any>{
     let currentUsernameId = Number(localStorage.getItem("currentId"));
 
-     return this.httpClient.get<any>("http://localhost:8080/analytics/received/amount/"+currentUsernameId);
+     return this.httpClient.get<any>("http://localhost:9093/analytics/received/amount/"+currentUsernameId);
    }
 
 }
